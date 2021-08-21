@@ -1,5 +1,13 @@
 Option Explicit
 
+Private Sub CommandButton1_Click()
+    Call DSV
+End Sub
+
+Private Sub CommandButton2_Click()
+    Call TNT
+End Sub
+
 Sub DSV()
 
 Application.ScreenUpdating = False
@@ -13,24 +21,24 @@ With Application.FileDialog(msoFileDialogFilePicker)
     .Title = "Please select tarnsaction"
     .ButtonName = "Pick Transaction File"
     .AllowMultiSelect = False
-    .InitialFileName = "K:\Logistics\#NEW FOLDER STRUCTURE\4. MATERIAL PLANNING\1. MEMBERS\49_Csabi\DSV_TNT_SZÁMLAIGAZOLÁSOK_TEST"
+    .InitialFileName = "K:\Logistics\#NEW FOLDER STRUCTURE\4. MATERIAL PLANNING\1. MEMBERS\49_Csabi\FUVARSZÁMLA_IGAZOLÁS"
      If .Show = -1 Then
         Openbook1 = .SelectedItems(1)
         Workbooks.Open Openbook1
      Else
-        MsgBox "Nothing was selected! Program terminates!"
+        GoTo Escape
      End If
 End With
 
 With Application.FileDialog(msoFileDialogFilePicker)
     .Title = "Please select DSV file"
     .ButtonName = "Pick DSV file"
-    .InitialFileName = "K:\Logistics\01_FINANCE\DSV\Lekérdezés\Aktuális_DSV_Számla"
+    .InitialFileName = "K:\Logistics\01_FINANCE\DSV\Lekérdezés"
     If .Show = -1 Then
         Openbook2 = .SelectedItems(1)
         Workbooks.Open Openbook2
     Else
-        MsgBox "Nothing was selected! Program Terminates!"
+        GoTo Escape
     End If
 End With
 
@@ -46,6 +54,8 @@ lastrow = WS1.UsedRange.Rows.Count ' - lastrow for transaction
 lastrow2 = WS2.UsedRange.Rows.Count ' - lastrow for TNT DSV
 
 WS2.Range("I3", "K" & lastrow2).ClearContents
+
+
 
 For i = 2 To lastrow2 Step 1
     For y = 3 To lastrow Step 1
@@ -95,8 +105,22 @@ For i = 2 To lastrow2 Step 1
         End If
     Next y
 Next i
+
+For i = 3 To lastrow2 Step 1
+    If Not WS2.Range("I" & i).Value = VBA.vbNullString Then
+        WS2.Range("H" & i).Value = "200"
+        WS2.Range("N" & i).Value = "Bejövő alapanyag"
+    End If
+Next i
+
+
     
+MsgBox "Macro is finished."
 Application.ScreenUpdating = True
+Exit Sub
+
+
 Escape:
     MsgBox "Program was canceled."
+    Application.ScreenUpdating = True
 End Sub
