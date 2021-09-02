@@ -61,12 +61,8 @@ For i = 2 To lastrow2 Step 1
                 x = WS2.Range("I" & i).Value
             End If
         End If
-    Next y
-Next i
-
-For i = 2 To lastrow2 Step 1
-    For y = 3 To lastrow Step 1
-        If WS2.Range("J" & i).Value = "" Then
+        
+          If WS2.Range("J" & i).Value = "" Then
             If UCase(WS2.Range("C" & i).Value) = UCase(WS1.Range("A" & y).Value) Then
                 WS2.Range("J" & i).Value = WS1.Range("C" & y).Value
                 x = WS2.Range("J" & i).Value
@@ -77,12 +73,8 @@ For i = 2 To lastrow2 Step 1
                 x = WS2.Range("J" & i).Value
             End If
         End If
-    Next y
-Next i
-
-For i = 2 To lastrow2 Step 1
-    For y = 3 To lastrow Step 1
-        If WS2.Range("K" & i).Value = "" Then
+        
+          If WS2.Range("K" & i).Value = "" Then
             If UCase(WS2.Range("C" & i).Value) = UCase(WS1.Range("A" & y).Value) Then
                 WS2.Range("K" & i).Value = WS1.Range("D" & y).Value
                 x = WS2.Range("K" & i).Value
@@ -93,8 +85,10 @@ For i = 2 To lastrow2 Step 1
                 x = WS2.Range("K" & i).Value
             End If
         End If
+        
     Next y
 Next i
+
     
 Application.ScreenUpdating = True
 Escape:
